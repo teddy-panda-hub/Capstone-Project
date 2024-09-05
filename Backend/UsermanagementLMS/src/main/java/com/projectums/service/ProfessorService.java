@@ -1,6 +1,7 @@
 package com.projectums.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,9 +41,9 @@ public class ProfessorService
 		return (List<Professor>)professorRepo.findProfessorListByEmail(email);
 	}
 	
-	public Professor fetchProfessorByEmail(String email)
+	public Optional<Professor> fetchProfessorById(Integer Id)
 	{
-		return professorRepo.findByEmail(email);
+		return professorRepo.findById(Id);
 	}
 	
 	public Professor fetchProfessorByProfessorname(String professorname)

@@ -2,6 +2,7 @@ package com.projectums.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ public class ProfessorController
 	private ProfessorService professorService;
 	
 	@GetMapping("/professorlist")
-	@CrossOrigin(origins = "http://localhost:4200")
+//	@CrossOrigin(origins = "http://localhost:4200")
 	public ResponseEntity<List<Professor>> getProfessorList() throws Exception
 	{
 		List<Professor> professors = professorService.getAllProfessors();
@@ -35,7 +36,7 @@ public class ProfessorController
 	}
 	
 	@GetMapping("/professorlistbyemail/{email}")
-	@CrossOrigin(origins = "http://localhost:4200")
+//	@CrossOrigin(origins = "http://localhost:4200")
 	public ResponseEntity<List<Professor>> getProfessorListByEmail(@PathVariable String email) throws Exception
 	{
 		List<Professor> professors = professorService.getProfessorsByEmail(email);
@@ -43,7 +44,7 @@ public class ProfessorController
 	}
 	
 	@PostMapping("/addProfessor")
-	@CrossOrigin(origins = "http://localhost:4200")
+//	@CrossOrigin(origins = "http://localhost:4200")
 	public Professor addNewProfessor(@RequestBody Professor professor) throws Exception
 	{
 //		Professor professorObj = null;
@@ -54,16 +55,17 @@ public class ProfessorController
 		return professorService.addNewProfessor(professor);
 	}
 	
-	@GetMapping("/professorprofileDetails/{email}")
-	@CrossOrigin(origins = "http://localhost:4200")
-	public ResponseEntity<List<Professor>> getProfileDetails(@PathVariable String email) throws Exception
+	@GetMapping("/professorprofileDetails/{id}")
+//	@CrossOrigin(origins = "http://localhost:4200")
+	public ResponseEntity<Professor> getProfileDetails(@PathVariable Integer id) throws Exception
 	{
-		List<Professor> professors = professorService.fetchProfileByEmail(email);
-		return new ResponseEntity<List<Professor>>(professors, HttpStatus.OK);
+		Optional<Professor> professors = professorService.fetchProfessorById(id);
+		Professor p=professors.get();
+		return new ResponseEntity<Professor>(p, HttpStatus.OK);
 	}
 	
 	@PutMapping("/updateprofessor")
-	@CrossOrigin(origins = "http://localhost:4200")
+//	@CrossOrigin(origins = "http://localhost:4200")
 	public ResponseEntity<Professor> updateProfessorProfile(@RequestBody Professor professor) throws Exception
 	{
 		Professor professorobj = professorService.updateProfessorProfile(professor);
@@ -71,7 +73,7 @@ public class ProfessorController
 	}
 	
 	@GetMapping("/gettotalprofessors")
-	@CrossOrigin(origins = "http://localhost:4200")
+//	@CrossOrigin(origins = "http://localhost:4200")
 	public ResponseEntity<List<Integer>> getTotalProfessors() throws Exception
 	{
 		List<Professor> professors = professorService.getAllProfessors();

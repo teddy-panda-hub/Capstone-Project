@@ -1,11 +1,9 @@
 package com.projectums.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projectums.entity.Professor;
 import com.projectums.entity.Student;
+import com.projectums.repository.ProfessorRepository;
 import com.projectums.repository.StudentRepository;
 import com.projectums.service.ProfessorService;
 import com.projectums.service.StudentService;
@@ -30,6 +29,9 @@ public class LoginController {
     
     @Autowired
     private StudentRepository studentRepo;
+    
+    @Autowired
+    private ProfessorRepository professorRepo;
 
     @GetMapping("/")
     public String welcomeMessage() {
@@ -56,17 +58,18 @@ public class LoginController {
 
     @PostMapping("/loginprofessor")
 //    @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<Map<String, String>> loginProfessor(@RequestBody Professor professor) {
-        Map<String, String> response = new HashMap<>();
+    public ResponseEntity<Integer> loginProfessor(@RequestBody Professor professor) {
+        Integer response;
         System.out.println(professor);
+        Professor prof=new Professor();
+        prof=professorRepo.findByUsername(professor.getUsername());
         
         // Here we validate credentials without using JWT
         if (professorService.authenticate(professor.getUsername(), professor.getPassword())) {
-            response.put("message", "Login successful");
-            response.put("professorName", professor.getUsername()); // You can customize the response as needed
+        	response=(prof.getProfessorId()); // You can customize the response as needed
             return ResponseEntity.ok(response);
         } else {
-            response.put("error", "Invalid credentials");
+        	response=0;
             return ResponseEntity.status(401).body(response);
         }
     }

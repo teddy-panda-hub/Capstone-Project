@@ -90,4 +90,8 @@ public class StudentService
 
 		return userRepo.existsByUsername(username);
     }
+    
+    public List<Student> getStudentsByCourseId(Integer courseId) {
+        return userRepo.findByCourseId(courseId);
+    }
 }

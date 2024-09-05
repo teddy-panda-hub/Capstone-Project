@@ -3,6 +3,8 @@ package com.capstone.coursemicroservice.controller;
 
 import com.capstone.coursemicroservice.entity.Course;
 import com.capstone.coursemicroservice.service.CourseService;
+import com.projectums.entity.Student;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -66,6 +68,12 @@ public class CourseController {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(resource);
     }
+    
+//    @GetMapping("/{courseId}/students")
+//    public ResponseEntity<List<Student>> getStudentsByCourseId(@PathVariable Integer courseId) {
+//        List<Student> students = courseService.getStudentsByCourseId(courseId);
+//        return ResponseEntity.ok(students);
+//    }
 
 
 

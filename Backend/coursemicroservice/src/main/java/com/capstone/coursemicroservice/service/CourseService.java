@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.capstone.coursemicroservice.entity.Course;
 import com.capstone.coursemicroservice.repository.CourseRepository;
+import com.projectums.entity.Student;
 
 @Service
 public class CourseService {
@@ -64,4 +65,10 @@ public class CourseService {
         Course course = courseRepository.findById(courseId).orElse(null);
         return course != null ? course.getResource() : null;
     }
+    
+//    public List<Student> getStudentsByCourseId(Integer courseId) {
+//        String url = "http://5555/user/byCourse/" + courseId;
+//        List<Student> students = restTemplate.getForObject(url, List.class);
+//        return students;
+//    }
 }

@@ -69,9 +69,10 @@ public class UserController
 	public List<Integer> getCourseIdsByStudentId(@PathVariable Integer studentId) {
 		return studentService.getCourseIdsByStudentId(studentId);
 	}
-
-
-
-
 	
+	@GetMapping("/byCourse/{courseId}")
+    public ResponseEntity<List<Student>> getStudentsByCourseId(@PathVariable Integer courseId) {
+        List<Student> students = studentService.getStudentsByCourseId(courseId);
+        return ResponseEntity.ok(students);
+    }
 }
